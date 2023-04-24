@@ -2,8 +2,8 @@
 allprojects {
   apply plugin: 'java'
 
-  sourceCompatibility = 1.8
-  targetCompatibility = 1.8
+  sourceCompatibility = 11
+  targetCompatibility = 11
 
   repositories {
     mavenCentral()
@@ -11,12 +11,10 @@ allprojects {
 
   dependencies {
     // Prod
-    implementation 'org.apache.logging.log4j:log4j-core:2.12.1'
-    implementation 'com.vlkan.log4j2:log4j2-logstash-layout:0.19'
-
+    implementation 'org.projectlombok:lombok:1.18.20'
     // Test
-    testCompile 'org.junit.jupiter:junit-jupiter-api:5.3.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
   }
 
   test {
@@ -63,7 +61,7 @@ buildscript {
     mavenCentral()
   }
   dependencies {
-    classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.6.RELEASE")
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:2.7.10")
   }
 }
 
@@ -84,17 +82,19 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 bootJar {
-  baseName = 'java-ddd-skeleton'
-  version = '0.0.1'
+  archiveBaseName = 'java-ddd-skeleton'
+  archiveFileName = 'java-ddd-skeleton.jar'
+  archiveVersion = '0.0.1'
 }
 
+apply plugin: 'application'
 mainClassName = 'tv.codely.Starter'
 
 dependencies {
-  compile("org.springframework.boot:spring-boot-starter-web")
+  implementation("org.springframework.boot:spring-boot-starter-web")
 
-  compile project(":backoffice")
-  compile project(":mooc")
+  implementation project(":backoffice")
+  implementation project(":mooc")
 
-  testCompile("org.springframework.boot:spring-boot-starter-test")
+  testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
